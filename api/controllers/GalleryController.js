@@ -24,7 +24,6 @@ const uploadFiles = async (req, res) => {
       return res.send(`File has been uploaded.`);
     });
   } catch (error) {
-    console.log(error);
     return res.send(`Error when trying upload images: ${error}`);
   }
 };
