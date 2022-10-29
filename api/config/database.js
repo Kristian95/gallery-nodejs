@@ -1,14 +1,13 @@
-const mysql = require('mysql');
-
-const config = {
-    port: process.env.DB_PORT,
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.MYSQL_DB,
-    connectionLimit: 50
-}
-
-const pool = mysql.createPool(config);
-
-module.exports = pool;
+module.exports = {
+    HOST: "localhost",
+    USER: "root",
+    PASSWORD: "password",
+    DB: "gallery_nodejs",
+    dialect: "mysql",
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
+  };

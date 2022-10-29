@@ -1,7 +1,16 @@
-var express = require('express'),
-  app = express(),
-  port = process.env.PORT || 3000;
+const express = require("express");
+const app = express();
+const db = require("./api/models");
+const initRoutes = require("./api/routes/web");
 
-app.listen(port);
+global.__basedir = __dirname;
 
-console.log('Galery API server started on: ' + port);
+app.use(express.urlencoded({ extended: true }));
+initRoutes(app);
+
+db.sequelize.sync();
+
+let port = 3000;
+app.listen(port, () => {
+  console.log(`Running at localhost:${port}`);
+});
