@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const homeController = require("../controllers/home");
-const uploadController = require("../controllers/GalleryController");
-const upload = require("../middleware/upload");
+const galleryController = require("../controllers/GalleryController");
+const uploader = require("../middleware/uploader");
 
 let routes = (app) => {
   router.get("/", homeController.getHome);
 
-  router.post("/upload", upload.single("file"), uploadController.uploadFiles);
+  router.post("/upload", uploader.single("file"), galleryController.uploadFiles);
 
   return app.use("/", router);
 };
