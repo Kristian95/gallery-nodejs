@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       data: {
         type: DataTypes.BLOB("long"),
       },
+      starred: {
+        type: DataTypes.BOOLEAN
+      },
     });
   
     return image;

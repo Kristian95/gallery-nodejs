@@ -45,7 +45,7 @@ const getPictures = async (request, response) => {
         ],
         limit: limit,
         offset: offset
-        });
+      });
 
       return images;
 
@@ -80,8 +80,23 @@ const deletePicture = async (request, response) => {
   return response.send(`Error when trying to remove image: ${error}`);
 }};
 
+const markStarred = async (requet, response) => {
+  try {
+    const fileName = request.params.name;
+
+    const result = await image.update(
+      { starred: 1},
+      { where: { name: fileName }
+    });
+
+    return response.send(`File has been updated successfully.`);
+  } catch (error) {
+    return response.send(`Error when trying to update image: ${error}`);
+  }};
+
 module.exports = {
   uploadFiles,
   getPictures,
-  deletePicture
+  deletePicture,
+  markStarred
 };

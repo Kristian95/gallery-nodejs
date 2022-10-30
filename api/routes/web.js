@@ -13,6 +13,8 @@ let routes = (app) => {
 
   router.delete("/image/:name", galleryController.deletePicture);
 
+  router.patch("/markStarred/:name", galleryController.markStarred);
+
   return app.use("/", router);
 };
 
