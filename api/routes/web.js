@@ -11,6 +11,8 @@ let routes = (app) => {
 
   router.get("/images", galleryController.getPictures);
 
+  router.delete("/image/:name", galleryController.deletePicture);
+
   return app.use("/", router);
 };
 

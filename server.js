@@ -7,6 +7,7 @@ global.__basedir = __dirname;
 
 app.use(express.urlencoded({ extended: true }));
 initRoutes(app);
+app.set('view engine', 'pug');
 
 db.sequelize.sync();
 

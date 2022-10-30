@@ -47,14 +47,41 @@ const getPictures = async (request, response) => {
         offset: offset
         });
 
-      console.log(images);
-      //return response.render(path.join(`${__dirname}/../views/index.html`));
+      return images;
+
   } catch (error) {
     return response.send(`Error when trying getting picutes: ${error}`);
   }
 };
 
+const deletePicture = async (request, response) => {
+  try {
+    const fileName = request.params.name;
+    const directoryPath = __basedir + "/resources/images/";
+
+    fs.unlink(directoryPath + fileName, (error) => {
+      if (error) {
+        response.status(500).send({
+          message: "Could not delete the file. " + error,
+        });
+      }
+    });
+
+    await image.destroy({
+      where: {
+        name: fileName
+      }
+    });
+
+    response.status(200).send({
+      message: "Image is deleted successfully",
+    });
+} catch (error) {
+  return response.send(`Error when trying to remove image: ${error}`);
+}};
+
 module.exports = {
   uploadFiles,
-  getPictures
+  getPictures,
+  deletePicture
 };
