@@ -1,6 +1,8 @@
 const fs = require("fs");
+const functoins = require("../utls/functions");
 
 const db = require("../models");
+const { or } = require("sequelize");
 const image = db.images;
 
 const uploadFiles = async (request, response) => {
@@ -33,24 +35,20 @@ const uploadFiles = async (request, response) => {
 
 const getPictures = async (request, response) => {
   try {
-    if (request.file == undefined) {
-      return response.send(`You must select a file.`);
-    }
+      const { page, size } = request.query;
 
-    image.create({
-      type: request.file.mimetype,
-      name: request.file.originalname,
-      data: fs.readFileSync(
-        __basedir + "/api/resources/images/" + request.file.filename
-      ),
-    }).then((image) => {
-      fs.writeFileSync(
-        __basedir + "/api/resources/tmp/" + image.name,
-        image.data
-      );
+      const { limit, offset } = functoins.getPagination(page, size);
 
-      return response.send(`File has been uploaded.`);
-    });
+      const images = await image.findAll({
+        order: [
+          ['createdAt', 'DESC']
+        ],
+        limit: limit,
+        offset: offset
+        });
+
+      console.log(images);
+      //return response.render(path.join(`${__dirname}/../views/index.html`));
   } catch (error) {
     return response.send(`Error when trying getting picutes: ${error}`);
   }

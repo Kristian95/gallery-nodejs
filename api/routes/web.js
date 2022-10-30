@@ -9,6 +9,8 @@ let routes = (app) => {
 
   router.post("/upload", uploader.single("file"), galleryController.uploadFiles);
 
+  router.get("/images", galleryController.getPictures);
+
   return app.use("/", router);
 };
 
