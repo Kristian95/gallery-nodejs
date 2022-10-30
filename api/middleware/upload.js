@@ -13,9 +13,12 @@ var storage = multer.diskStorage({
     cb(null, __basedir + "/api/resources/images/");
   },
   filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-gallery-${file.originalname}`);
+    cb(null, `${Date.now()}-image-${file.originalname}`);
   },
 });
 
-var uploadFile = multer({ storage: storage, fileFilter: imageFilter });
+var uploadFile = multer({
+  storage: storage,
+  fileFilter: imageFilter
+});
 module.exports = uploadFile;
